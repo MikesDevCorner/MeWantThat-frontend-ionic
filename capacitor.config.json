@@ -1,0 +1,9 @@
+{
+  "appId": "com.mikesdevcorner.masterthesis.ionic",
+  "appName": "ShoppingIonic",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "cordova": {},
+  "windowsAndroidStudioPath": "C:\\Users\\wagnm\\AppData\\Local\\JetBrains\\Toolbox\\apps\\AndroidStudio\\ch-0\\193.6626763\\bin\\studio64.exe"
+}
