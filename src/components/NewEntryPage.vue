@@ -49,20 +49,20 @@ export default {
           this.listid
         );
         if (response.status === 201) {
-          this.$router.push({
+          this.$router.replace({
             name: "single-list-view",
             params: { listid: this.listid, title: this.title }
           });
-          this.presentToast("Anlegen erfolgreich");
+          this.presentToast("Entry created successfully");
         } else {
           this.presentAlert(
-            "Fehler",
-            "Leider ist beim Anlegen des Listenpostens etwas schief gegangen."
+            "Error",
+            "There was an error creating your entry"
           );
         }
         this.hideLoading();
       } else {
-        this.presentToast("Bitte überprüfen Sie die Felder");
+        this.presentToast("Please check your input fields");
       }
     },
     goBack() {

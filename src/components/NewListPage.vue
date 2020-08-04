@@ -37,17 +37,17 @@ export default {
         this.showLoading();
         let response = await this.$api.addList(this.listName);
         if (response.status === 201) {
-          this.$router.push({ name: "all-lists" });
-          this.presentToast("Anlegen erfolgreich");
+          this.$router.replace({ name: "all-lists" });
+          this.presentToast("List created successfully");
         } else {
           this.presentAlert(
-            "Fehler",
-            "Leider ist beim Anlegen der Liste etwas schief gegangen"
+            "Error",
+            "Some error occured during creation of your list"
           );
         }
         this.hideLoading();
       } else {
-        this.presentToast("Das Feld darf nicht leer sein");
+        this.presentToast("Listname should not be empty");
       }
     }
   }

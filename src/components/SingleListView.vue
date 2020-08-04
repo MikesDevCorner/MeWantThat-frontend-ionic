@@ -54,11 +54,11 @@ export default {
       let response = await this.$api.removeEntry(entry);
       if (response.status === 204) {
         this.refreshEntries();
-        this.presentToast("Löschen erfolgreich.");
+        this.presentToast("Deleted successfully.");
       } else {
         this.presentAlert(
-          "Fehler",
-          "Leider ist beim Löschen etwas schief gegangen."
+          "Error",
+          "Some error occured during deletion"
         );
       }
     },
