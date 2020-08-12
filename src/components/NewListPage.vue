@@ -5,6 +5,11 @@
         <ion-buttons slot="start">
           <ion-back-button default-href="/"></ion-back-button>
         </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button>
+            <font-awesome-icon icon="power-off" @click="logout" />
+          </ion-button>
+        </ion-buttons>
         <ion-title>New List</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -13,6 +18,8 @@
         <ion-label position="floating">New List</ion-label>
         <ion-input type="text" 
                   :value="listName" 
+                  maxlength="60"
+                  required
                   @input="listName=$event.target.value"></ion-input>
       </ion-item>
       <div class="icenter">
@@ -35,20 +42,29 @@ export default {
       this.listName = this.listName.trim();
       if (this.listName !== "") {
         this.showLoading();
-        let response = await this.$api.addList(this.listName);
-        if (response.status === 201) {
-          this.$router.replace({ name: "all-lists" });
-          this.presentToast("List created successfully");
-        } else {
+        try {
+          let response = await this.$api.addList(this.listName);
+          this.hideLoading();
+          if (response.status === 201) {
+            this.$router.replace({ name: "all-lists" });
+            this.presentToast("List created successfully");
+          }
+        } catch(e) {
+          this.hideLoading();
           this.presentAlert(
             "Error",
             "Some error occured during creation of your list"
           );
         }
-        this.hideLoading();
       } else {
         this.presentToast("Listname should not be empty");
       }
+    },
+    async logout() {
+      await this.$api.logout();
+      this.$router.replace({
+        name: "login"
+      });
     }
   }
 };

@@ -17,4 +17,13 @@ export default {
     background: transparent;
     box-shadow: none;
   }
+
+  :root {
+  --ion-color-primary: #2196f3;
+  --ion-color-primary-rgb: 33,150,243;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255,255,255;
+  --ion-color-primary-shade: #2386d5;
+  --ion-color-primary-tint: #2079c0;
+}
 </style>

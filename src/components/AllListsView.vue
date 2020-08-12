@@ -2,6 +2,11 @@
   <ion-page>
     <ion-header>
       <ion-toolbar color="primary">
+        <ion-buttons slot="end">
+          <ion-button>
+            <font-awesome-icon icon="power-off" @click="logout" />
+          </ion-button>
+        </ion-buttons>
         <ion-title>Shopping Lists</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -9,10 +14,10 @@
       <ion-list>
         <ion-item button v-for="(list, index) in lists" :key="index">
           <ion-ripple-effect></ion-ripple-effect>
-          <font-awesome-icon icon="list" style="color:#3880ff; margin-right: 35px;" />
+          <font-awesome-icon icon="list" style="color:#2196f3; margin-right: 35px;" />
           <ion-label @click="openList(list)">
-            <h2>{{list.listenname}}</h2>
-            <ion-note>{{list.updated_at}}</ion-note>
+            <h2>{{list.listname}}</h2>
+            <ion-note>{{list.readableDate}}</ion-note>
           </ion-label>
           <ion-button fill="clear" size="large" slot="end" @click="removeList(list)">
             <font-awesome-icon icon="trash" style="color:#666;" />
@@ -31,6 +36,7 @@
 <script>
 
 import { Plugins } from '@capacitor/core'
+import moment from 'moment'
 
 export default {
   name: "AllListsView",
@@ -54,12 +60,15 @@ export default {
       this.showLoading();
       let response = await this.$api.getLists();
       this.lists = response.data;
+      this.lists.forEach((list) => {
+          list.readableDate = moment(list.updated_at).format("YYYY-MM-DD HH:mm:SS")
+      })
       this.hideLoading();
     },
     openList(list) {
       this.$router.push({
         name: "single-list-view",
-        params: { listid: list.id, title: list.listenname }
+        params: { listid: list.id, title: list.listname }
       });
     },
     addList() {
@@ -68,15 +77,22 @@ export default {
     async removeList(list) {
       this.showLoading();
       let response = await this.$api.removeList(list);
-      if (response.status === 204) {
+      if (response.status === 200) {
         this.refreshList();
         this.presentToast("Deleted successfully");
       } else {
+        this.hideLoading();
         this.presentAlert(
           "Error",
           "Some error occured during deletion"
         );
       }
+    },
+    async logout() {
+      await this.$api.logout();
+      this.$router.replace({
+        name: "login"
+      });
     }
   }
 };

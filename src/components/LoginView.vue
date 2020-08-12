@@ -1,0 +1,140 @@
+<template>
+  <ion-page>
+    <ion-content color="primary">
+      <ion-grid>
+        <ion-row color="primary" class="ion-justify-content-center">
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <div class="ion-text-center hl">
+              <h1 v-if="register===false">Shopping List</h1>
+              <h3 v-if="register===true">Register an Account for Shopping List</h3>
+            </div>
+            <div class="ion-padding">
+              <ion-item v-if="register">
+                <ion-label position="floating">Name</ion-label>
+                <ion-input type="text" 
+                          :value="name"
+                          
+                          @input="name=$event.target.value"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">E-Mail</ion-label>
+                <ion-input type="email" 
+                          :value="email"
+                          
+                          @input="email=$event.target.value"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" 
+                          :value="password" 
+                          
+                          @input="password=$event.target.value"></ion-input>
+              </ion-item>
+              <ion-item v-if="register">
+                <ion-label position="floating">Password again</ion-label>
+                <ion-input type="password" 
+                          :value="passwordconfirm"
+                          
+                          @input="passwordconfirm=$event.target.value"></ion-input>
+              </ion-item>
+              <div class="ion-padding">
+                <ion-button expand="block" size="large" @click="login">{{ register ? 'Register' : 'Login' }}</ion-button>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button @click="changeToRegister">{{ register ? 'Login' : 'Register' }}</ion-fab-button>
+      </ion-fab>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script>
+
+export default {
+  name: "LoginView",
+  data() {
+    return {
+      register: false,
+      email: "",
+      password: "",
+      passwordconfirm: "",
+      name: ""
+    };
+  },
+  methods: {
+    changeToRegister() {
+      this.register = !this.register
+    },
+    async login() {
+      this.email = this.email.trim();
+      if (this.email !== "" && this.password !== "") {
+        this.showLoading();
+        try {
+          let response = null
+          if(this.register === true) {
+            response = await this.$api.register(
+              this.name,
+              this.email,
+              this.password,
+              this.passwordconfirm
+            )
+          } else {
+            response = await this.$api.login(
+              this.email,
+              this.password
+            )
+          }
+          if (response.status === 202) {
+            this.$router.replace({name: "all-lists"});
+            this.presentToast("Login successful")
+          } else if(response.status === 201) {
+            this.$router.replace({name: "all-lists"});
+            this.presentToast("Registered successful and logged in")
+          } else if(response.status === 401) {
+            this.presentToast("Please check E-Mail and Password and try again");
+          }
+          this.hideLoading()
+        } catch(e) {
+          this.hideLoading();
+          this.presentToast("Something went wrong on contacting the API: "+e.message);
+        }
+      } else {
+        this.presentToast("Please check your input fields")
+      }
+    },
+    goBack() {
+      this.$router.replace({
+        name: "single-list-view",
+        params: { listid: this.listid, title: this.title }
+      });
+    }
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+  ion-content{
+      --ion-background-color:#2196f3;
+  }
+
+  ion-item {
+      --background: #2196f3;
+      --color: #fff;
+      margin-bottom: 30px;
+  }
+
+  ion-button, ion-fab-button{
+      --background: #062f77;
+  }
+
+  .hl {
+    margin-bottom: 50px;
+  }
+
+</style>

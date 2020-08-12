@@ -1,39 +1,101 @@
-import axios from "axios";
+import axios from "axios"
+import auth from "./auth.js"
 
-const url = "https://masterthesis.mikesdevcorner.com";
+const url = "https://masterthesis2.mikesdevcorner.com/api"
+//const url = "http://127.0.0.1:8000/api"
 
 export default {
+  isAuthenticated: false,
   install: function(Vue) {
     Vue.prototype.$api = {
+      async login(email, password) {
+        let response = null;
+        try {
+          response = await axios.post(url + "/login", {
+            email: email,
+            password: password
+          });
+          if(response.status === 202) {
+            await auth.setToken(response.data.success.token)
+          }
+          return response
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
+      },
+      async logout() {
+        let response = await axios.post(url + "/logout")
+        auth.setToken(null)
+        return response
+      },
+      async register(name, email, password, password_confirmation) {
+        try {
+          let response = await axios.post(url + "/register", {
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation,
+            name: name          
+          });
+          if(response.status === 201) {
+            await auth.setToken(response.data.success.token)
+          }
+          return response
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
+      },
       async getLists() {
-        let response = await axios.get(url + "/api/lists");
-        return Promise.resolve(response);
+        try {
+          let response = await axios.get(url + "/lists")
+          return response
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
       },
       async addList(name) {
-        let response = await axios.post(url + "/api/list", {
-          listenname: name
-        });
-        return Promise.resolve(response);
+        try {
+          let response = await axios.post(url + "/list", {
+            listname: name
+          })
+          return response
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
       },
       async removeList(list) {
-        let response = await axios.delete(url + "/api/list/" + list.id);
-        return Promise.resolve(response);
+        try {
+          let response = await axios.delete(url + "/list/" + list.id);
+          return Promise.resolve(response)
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
       },
       async getEntries(listId) {
-        let response = await axios.get(url + "/api/entries/" + listId);
-        return Promise.resolve(response);
+        try {
+          let response = await axios.get(url + "/list/" + listId + "/entries");
+          return Promise.resolve(response)
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
       },
       async addEntry(name, amount, listId) {
-        let response = await axios.post(url + "/api/entry", {
-          postenname: name,
-          anzahl: amount,
-          einkaufsliste_id: listId
-        });
-        return Promise.resolve(response);
+        try {
+          let response = await axios.post(url + "/list/"+listId+"/entry", {
+            entryname: name,
+            amount: amount
+          });
+          return Promise.resolve(response)
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
       },
       async removeEntry(entry) {
-        let response = await axios.delete(url + "/api/entry/" + entry.id);
-        return Promise.resolve(response);
+        try {
+          let response = await axios.delete(url + "/entry/" + entry.id)
+          return Promise.resolve(response)
+        } catch(e) {
+          if(auth.checkUnauthenticated(e)) return e.response
+        }
       }
     };
   }

@@ -10,7 +10,7 @@ export default {
     showLoading() {
       let me = this;
       if (this.loading !== true) {
-        this.loading = true;
+        this.loading = true
         return this.$ionic.loadingController
           .create({
             showBackdrop: false,
@@ -19,14 +19,16 @@ export default {
             cssClass: 'my-loading-class'
           })
           .then(loadScreen => {
-            me.loadScreen = loadScreen;
-            return loadScreen.present();
+            if(me.loading === true) {
+              me.loadScreen = loadScreen
+              return loadScreen.present()
+            } else loadScreen.dismiss()
           });
       }
     },
     hideLoading() {
       this.loading = false;
-      this.loadScreen.dismiss();
+      if(this.loadScreen) this.loadScreen.dismiss()
     },
     presentAlert(header, message, subtitle, buttons) {
       return this.$ionic.alertController
@@ -38,13 +40,13 @@ export default {
         })
         .then(a => a.present());
     },
-    presentToast(message) {
+    presentToast(message, duration) {
       return this.$ionic.toastController
         .create({
           message: message,
-          duration: 2000
+          duration: duration === undefined ? 4000 : duration
         })
-        .then(a => a.present());
+        .then(a => a.present())
     }
   }
 };
