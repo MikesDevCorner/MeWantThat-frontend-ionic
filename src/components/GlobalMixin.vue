@@ -44,7 +44,8 @@ export default {
       return this.$ionic.toastController
         .create({
           message: message,
-          duration: duration === undefined ? 4000 : duration
+          position: 'top',
+          duration: duration === undefined ? 2000 : duration
         })
         .then(a => a.present())
     }

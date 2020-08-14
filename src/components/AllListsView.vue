@@ -59,7 +59,10 @@ export default {
     async refreshList() {
       this.showLoading();
       let response = await this.$api.getLists();
-      if(response.status === 401) this.$router.replace({name: "login"});
+      if(response.status === 401) {
+        this.hideLoading();
+        this.$router.replace({name: "login"});
+      }
       this.lists = response.data;
       this.lists.forEach((list) => {
           list.readableDate = moment(list.updated_at).format("YYYY-MM-DD HH:mm")
@@ -81,6 +84,9 @@ export default {
       if (response.status === 200) {
         this.refreshList();
         this.presentToast("Deleted successfully");
+      } else if(response.status === 401) {
+        this.hideLoading();
+        this.$router.replace({name: "login"});
       } else {
         this.hideLoading();
         this.presentAlert(

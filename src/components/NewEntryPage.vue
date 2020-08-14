@@ -66,6 +66,9 @@ export default {
               params: { listid: this.listid, title: this.title }
             });
             this.presentToast("Entry created successfully");
+          } else if(response.status === 401) {
+            this.hideLoading();
+            this.$router.replace({name: "login"});
           }
         } catch(e) {
           this.hideLoading();

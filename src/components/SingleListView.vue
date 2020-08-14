@@ -53,6 +53,10 @@ export default {
     async refreshEntries() {
       this.showLoading();
       let response = await this.$api.getEntries(this.listid);
+      if(response.status === 401) {
+        this.hideLoading();
+        this.$router.replace({name: "login"});
+      }
       this.entries = response.data;
       this.entries.forEach((entry) => {
           entry.readableDate = moment(entry.updated_at).format("YYYY-MM-DD HH:mm")
@@ -65,6 +69,9 @@ export default {
       if (response.status === 200) {
         this.refreshEntries();
         this.presentToast("Deleted successfully.");
+      } else if(response.status === 401) {
+        this.hideLoading();
+        this.$router.replace({name: "login"});
       } else {
         this.hideLoading();
         this.presentAlert(

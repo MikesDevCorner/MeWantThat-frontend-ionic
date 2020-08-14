@@ -48,6 +48,9 @@ export default {
           if (response.status === 201) {
             this.$router.replace({ name: "all-lists" });
             this.presentToast("List created successfully");
+          } else if(response.status === 401) {
+            this.hideLoading();
+            this.$router.replace({name: "login"});
           }
         } catch(e) {
           this.hideLoading();

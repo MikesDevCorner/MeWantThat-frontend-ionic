@@ -12,29 +12,25 @@
               <ion-item v-if="register">
                 <ion-label position="floating">Name</ion-label>
                 <ion-input type="text" 
-                          :value="name"
-                          
+                          :value="name"                          
                           @input="name=$event.target.value"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">E-Mail</ion-label>
                 <ion-input type="email" 
-                          :value="email"
-                          
+                          :value="email"                          
                           @input="email=$event.target.value"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Password</ion-label>
                 <ion-input type="password" 
-                          :value="password" 
-                          
+                          :value="password"                           
                           @input="password=$event.target.value"></ion-input>
               </ion-item>
               <ion-item v-if="register">
                 <ion-label position="floating">Password again</ion-label>
                 <ion-input type="password" 
-                          :value="passwordconfirm"
-                          
+                          :value="passwordconfirm"                          
                           @input="passwordconfirm=$event.target.value"></ion-input>
               </ion-item>
               <div class="ion-padding">
