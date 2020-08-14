@@ -13,6 +13,10 @@ export default {
 </script>
 
 <style>
+  .mytoast {
+    opacity: 0.8;
+  }
+
   ion-loading.my-loading-class .loading-wrapper {
     background: transparent;
     box-shadow: none;

@@ -34,7 +34,7 @@
                           @input="passwordconfirm=$event.target.value"></ion-input>
               </ion-item>
               <div class="ion-padding">
-                <ion-button expand="block" size="large" @click="login">{{ register ? 'Register' : 'Login' }}</ion-button>
+                <ion-button expand="block" @click="login">{{ register ? 'Register' : 'Login' }}</ion-button>
               </div>
             </div>
           </ion-col>
@@ -125,7 +125,7 @@ export default {
   ion-item {
       --background: #2196f3;
       --color: #fff;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
   }
 
   ion-button, ion-fab-button{
@@ -138,7 +138,7 @@ export default {
   }
 
   .hl > h1 {
-    font-size: 50px;
+    font-size: 43px;
     font-weight: normal;
     text-align: center;
   }
