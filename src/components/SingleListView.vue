@@ -91,4 +91,7 @@ export default {
 
 
 <style scoped>
+  .sc-ion-label-md-s h2 {
+    font-size: 20px;
+  }
 </style>

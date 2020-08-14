@@ -2,7 +2,6 @@ import axios from "axios"
 import auth from "./auth.js"
 
 const url = "https://masterthesis2.mikesdevcorner.com/api"
-//const url = "http://127.0.0.1:8000/api"
 
 export default {
   isAuthenticated: false,

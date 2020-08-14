@@ -46,7 +46,10 @@
       </ion-grid>
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button @click="changeToRegister">{{ register ? 'Login' : 'Register' }}</ion-fab-button>
+        <ion-fab-button @click="changeToRegister">
+          <font-awesome-icon v-if="register" icon="sign-in-alt" />
+          <font-awesome-icon v-if="!register" icon="user-plus" />
+        </ion-fab-button>
       </ion-fab>
     </ion-content>
   </ion-page>
@@ -134,7 +137,20 @@ export default {
   }
 
   .hl {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    padding: 0px 32px;
+  }
+
+  .hl > h1 {
+    font-size: 50px;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  .hl > h3 {
+    font-size: 30px;
+    font-weight: normal;
+    text-align: left;
   }
 
 </style>

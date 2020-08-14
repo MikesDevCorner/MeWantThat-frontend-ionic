@@ -59,9 +59,10 @@ export default {
     async refreshList() {
       this.showLoading();
       let response = await this.$api.getLists();
+      if(response.status === 401) this.$router.replace({name: "login"});
       this.lists = response.data;
       this.lists.forEach((list) => {
-          list.readableDate = moment(list.updated_at).format("YYYY-MM-DD HH:mm:SS")
+          list.readableDate = moment(list.updated_at).format("YYYY-MM-DD HH:mm")
       })
       this.hideLoading();
     },
@@ -90,9 +91,7 @@ export default {
     },
     async logout() {
       await this.$api.logout();
-      this.$router.replace({
-        name: "login"
-      });
+      this.$router.replace({name: "login"});
     }
   }
 };
@@ -100,4 +99,7 @@ export default {
 
 
 <style scoped>
+  .sc-ion-label-md-s h2 {
+    font-size: 20px;
+  }
 </style>

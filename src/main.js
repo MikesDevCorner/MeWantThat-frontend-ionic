@@ -7,7 +7,7 @@ import "@ionic/core/css/ionic.bundle.css"
 import { IonicVueRouter } from "@ionic/vue"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus, faTrash, faTrashAlt, faList, faTag, faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash, faList, faTag, faPowerOff, faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import GlobalMixin from './components/GlobalMixin.vue'
 import apiLib from "./shared/api.js"
@@ -21,7 +21,7 @@ async function initApp() {
   Vue.use(IonicVueRouter)
   Vue.mixin(GlobalMixin)
   Vue.use(apiLib)
-  library.add(faPlus, faTrash, faTrashAlt, faList, faTag, faPowerOff)
+  library.add(faPlus, faTrash, faList, faTag, faPowerOff, faUserPlus, faSignInAlt)
   Vue.component('font-awesome-icon', FontAwesomeIcon)
 
   const router = new IonicVueRouter({

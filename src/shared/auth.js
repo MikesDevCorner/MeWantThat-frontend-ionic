@@ -1,13 +1,14 @@
+import 'capacitor-secure-storage-plugin'
 import { Plugins } from '@capacitor/core'
 import axios from 'axios'
 
-const { Storage } = Plugins;
+const { SecureStoragePlugin } = Plugins;
 
 export default {
     _token: null,
     setToken: async function(val) {
         this._token = val
-        await Storage.set({
+        await SecureStoragePlugin.set({
             key: 'token', 
             value: val
         })
@@ -18,8 +19,12 @@ export default {
         return this._token
     },
     init: async function() {
-        const t = await Storage.get({ key: 'token'})
-        console.log("auth init done")
+        let t = {value: null};
+        try {
+            t = await SecureStoragePlugin.get({ key: 'token'})
+        } catch(e) {
+            console.log('no token read from storage')
+        }
         if(t.value !== null && t.value !== 'null' && t.value !== undefined && t.value !== 'undefined') {
             this._token = t.value
             axios.defaults.headers.common = {'Authorization': `Bearer ${t.value}`, 'Accept': 'application/json'}
