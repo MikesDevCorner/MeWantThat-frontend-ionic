@@ -14,12 +14,29 @@ export default {
 
 <style>
   .mytoast {
-    opacity: 0.8;
+    opacity: 0.9;
+    --end: 75px;
+  }
+
+  ion-title {
+    font-size: 19px;
+  }
+
+  ion-item {
+    --inner-border-width: 0;
+  }
+   
+  ion-fab-button{
+      --background: #062f77;
   }
 
   ion-loading.my-loading-class .loading-wrapper {
     background: transparent;
     box-shadow: none;
+  }
+
+  ion-note {
+    color: #888;
   }
 
   :root {
@@ -29,5 +46,6 @@ export default {
   --ion-color-primary-contrast-rgb: 255,255,255;
   --ion-color-primary-shade: #2386d5;
   --ion-color-primary-tint: #2079c0;
-}
+  --ion-color-secondary: #062f77;
+  }
 </style>

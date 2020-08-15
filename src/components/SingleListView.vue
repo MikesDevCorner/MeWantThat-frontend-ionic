@@ -22,13 +22,13 @@
             <ion-note>Amount: {{entry.amount}}x</ion-note>
           </ion-label>
           <ion-button  fill="clear" size="large" slot="end" @click="removeEntry(entry)">
-            <font-awesome-icon icon="trash" style="color:#666;" />
+            <font-awesome-icon class="fa-xs" icon="trash" style="color:#777;" />
           </ion-button>
         </ion-item>
       </ion-list>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button @click="addEntry">
-          <font-awesome-icon icon="plus" />
+          <font-awesome-icon class="fa-lg" icon="plus" />
         </ion-fab-button>
       </ion-fab>
     </ion-content>
@@ -99,6 +99,15 @@ export default {
 
 <style scoped>
   .sc-ion-label-md-s h2 {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  ion-list ion-button {
+    --padding-end: 5px;
+  }
+
+  ion-header ion-button {
+    --padding-end: 15px;
   }
 </style>

@@ -13,26 +13,28 @@
         <ion-title>{{title}}: New Entry</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content padding>
-      <ion-item class="nameinput">
-        <ion-label position="floating">New Entry</ion-label>
-        <ion-input type="text" 
-                  :value="entryName" 
-                  required
-                  maxlength="60"
-                  @input="entryName=$event.target.value"></ion-input>
-      </ion-item>
-      <ion-item class="amountinput">
-        <ion-label position="floating">Amount</ion-label>
-        <ion-input type="number" 
-                  required
-                  min="0"
-                  max="9999"
-                  :value="amount" 
-                  @input="amount=$event.target.value"></ion-input>
-      </ion-item>
-      <div class="icenter">
-        <ion-button color="light" @click="saveEntry">Save</ion-button>
+    <ion-content>
+      <div class="gpadding">
+        <ion-item class="nameinput">
+          <ion-label position="floating">New Entry</ion-label>
+          <ion-input type="text" 
+                    :value="entryName" 
+                    required
+                    maxlength="60"
+                    @input="entryName=$event.target.value"></ion-input>
+        </ion-item>
+        <ion-item class="amountinput">
+          <ion-label position="floating">Amount</ion-label>
+          <ion-input type="number" 
+                    required
+                    min="0"
+                    max="9999"
+                    :value="amount" 
+                    @input="amount=$event.target.value"></ion-input>
+        </ion-item>
+        <div class="icenter">
+          <ion-button expand="block" @click="saveEntry">Save</ion-button>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -106,7 +108,24 @@ export default {
 .amountinput {
   margin-bottom: 20px;
 }
+
 .icenter {
-  text-align: center;
+  padding-top: 15px;
+}
+
+ion-button {
+  --background: #2196f3;
+}
+
+.gpadding {
+  margin: 30px;
+}
+
+ion-item {
+    margin-bottom: 5px;
+    --highlight-color-focused	: #062f77;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --highlight-height: 1px;
 }
 </style>

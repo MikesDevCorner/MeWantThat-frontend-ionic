@@ -8,32 +8,36 @@
               <h1 v-if="register===false">Shopping List</h1>
               <h3 v-if="register===true">Register an Account for Shopping List</h3>
             </div>
-            <div class="ion-padding">
+            <div class="ion-padding" style="margin: 4px;">
               <ion-item v-if="register">
                 <ion-label position="floating">Name</ion-label>
                 <ion-input type="text" 
-                          :value="name"                          
+                          :value="name"
+                          inputmode="text"
                           @input="name=$event.target.value"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">E-Mail</ion-label>
-                <ion-input type="email" 
-                          :value="email"                          
+                <ion-input type="email"
+                          :value="email"
+                          inputmode="email"
                           @input="email=$event.target.value"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Password</ion-label>
-                <ion-input type="password" 
-                          :value="password"                           
+                <ion-input type="password"
+                          :value="password"
+                          inputmode="text"
                           @input="password=$event.target.value"></ion-input>
               </ion-item>
               <ion-item v-if="register">
                 <ion-label position="floating">Password again</ion-label>
-                <ion-input type="password" 
-                          :value="passwordconfirm"                          
+                <ion-input type="password"
+                          :value="passwordconfirm"
+                          inputmode="text"
                           @input="passwordconfirm=$event.target.value"></ion-input>
               </ion-item>
-              <div class="ion-padding">
+              <div class="lbutton">
                 <ion-button expand="block" @click="login">{{ register ? 'Register' : 'Login' }}</ion-button>
               </div>
             </div>
@@ -43,8 +47,8 @@
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button @click="changeToRegister">
-          <font-awesome-icon v-if="register" icon="sign-in-alt" />
-          <font-awesome-icon v-if="!register" icon="user-plus" />
+          <font-awesome-icon class="fa-lg" v-if="register" icon="sign-in-alt" />
+          <font-awesome-icon class="fa-lg" v-if="!register" icon="user-plus" />
         </ion-fab-button>
       </ion-fab>
     </ion-content>
@@ -119,17 +123,27 @@ export default {
 <style scoped>
 
   ion-content{
-      --ion-background-color:#2196f3;
+    --ion-background-color:#2196f3;
+  }
+
+  .lbutton {
+    margin: -2px;
+    margin-top: 30px;
+  }
+
+  ion-button {
+    --background: #062f77;
   }
 
   ion-item {
       --background: #2196f3;
       --color: #fff;
-      margin-bottom: 20px;
-  }
-
-  ion-button, ion-fab-button{
-      --background: #062f77;
+      margin-bottom: 5px;
+      --highlight-color-focused	: #062f77;
+      --padding-end: 0px;
+      --padding-start: 0px;
+      --highlight-height: 1px;
+      /*--show-full-highlight: true;*/
   }
 
   .hl {
@@ -141,6 +155,7 @@ export default {
     font-size: 43px;
     font-weight: normal;
     text-align: center;
+    margin-top: 40px;
   }
 
   .hl > h3 {
@@ -148,5 +163,7 @@ export default {
     font-weight: normal;
     text-align: left;
   }
+
+
 
 </style>

@@ -13,17 +13,19 @@
         <ion-title>New List</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content padding>
-      <ion-item class="nameinput">
-        <ion-label position="floating">New List</ion-label>
-        <ion-input type="text" 
-                  :value="listName" 
-                  maxlength="60"
-                  required
-                  @input="listName=$event.target.value"></ion-input>
-      </ion-item>
-      <div class="icenter">
-        <ion-button color="light" @click="saveList">Save</ion-button>
+    <ion-content>
+      <div class="gpadding">
+        <ion-item class="nameinput">
+          <ion-label position="floating">New List</ion-label>
+          <ion-input type="text" 
+                    :value="listName" 
+                    maxlength="60"
+                    required
+                    @input="listName=$event.target.value"></ion-input>
+        </ion-item>
+        <div class="icenter">
+          <ion-button expand="block" @click="saveList">Save</ion-button>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -75,11 +77,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.nameinput {
-  margin-top: 40px;
-  margin-bottom: 20px;
-}
-.icenter {
-  text-align: center;
-}
+  .nameinput {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  .icenter {
+    padding-top: 15px;
+  }
+
+  ion-button {
+    --background: #2196f3;
+  }
+
+  .gpadding {
+    margin: 30px;
+  }
+
+  ion-item {
+      margin-bottom: 5px;
+      --highlight-color-focused	: #062f77;
+      --padding-end: 0px;
+      --padding-start: 0px;
+      --highlight-height: 1px;
+  }
+
 </style>
