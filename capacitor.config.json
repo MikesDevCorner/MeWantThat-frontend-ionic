@@ -1,5 +1,5 @@
 {
-  "appId": "com.mikesdevcorner.masterthesis.ionic",
+  "appId": "com.mikesdevcorner.shopping.ionic",
   "appName": "ShoppingIonic",
   "bundledWebRuntime": false,
   "npmClient": "yarn",

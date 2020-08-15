@@ -16,7 +16,7 @@
     <ion-content>
       <div class="gpadding">
         <ion-item class="nameinput">
-          <ion-label position="floating">New Entry</ion-label>
+          <ion-label position="floating">Entryname</ion-label>
           <ion-input type="text" 
                     :value="entryName" 
                     required

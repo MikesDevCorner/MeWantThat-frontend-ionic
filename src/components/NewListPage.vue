@@ -16,7 +16,7 @@
     <ion-content>
       <div class="gpadding">
         <ion-item class="nameinput">
-          <ion-label position="floating">New List</ion-label>
+          <ion-label position="floating">Listname</ion-label>
           <ion-input type="text" 
                     :value="listName" 
                     maxlength="60"

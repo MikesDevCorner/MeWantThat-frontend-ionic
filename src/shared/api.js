@@ -1,7 +1,7 @@
 import axios from "axios"
 import auth from "./auth.js"
 
-const url = "https://masterthesis2.mikesdevcorner.com/api"
+const url = "https://shopping.mikesdevcorner.com/api"
 
 export default {
   isAuthenticated: false,
