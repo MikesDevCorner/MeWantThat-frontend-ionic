@@ -1,6 +1,6 @@
 {
   "appId": "com.mikesdevcorner.shopping.ionic",
-  "appName": "ShoppingIonic",
+  "appName": "Me Want That",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "dist",

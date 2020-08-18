@@ -6,23 +6,27 @@
           <ion-back-button default-href="/"></ion-back-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <ion-button>
-            <font-awesome-icon icon="power-off" @click="logout" />
-          </ion-button>
+          <ion-menu-button menu="first" >
+            <font-awesome-icon class="fa-xs" icon="bars"/>
+          </ion-menu-button>
         </ion-buttons>
         <ion-title>List: {{title}}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content padding>
-      <ion-list>
+      <div v-if="entries.length === 0" class="img-cont">
+        <div class="handwritten empty">vast emptyness</div>
+        <img alt="Hint" src="../assets/first_entry_hint.png" class="hint">
+      </div>
+      <ion-list v-if="entries.length > 0">
         <ion-item v-for="(entry, index) in entries" :key="index">
-          <font-awesome-icon icon="tag" style="color:#2196f3; margin-right: 35px;" />
+          <font-awesome-icon class="text-color-primary" icon="tag"/>
           <ion-label>
             <h2>{{entry.entryname}}</h2>
             <ion-note>Amount: {{entry.amount}}x</ion-note>
           </ion-label>
           <ion-button  fill="clear" size="large" slot="end" @click="removeEntry(entry)">
-            <font-awesome-icon class="fa-xs" icon="trash" style="color:#777;" />
+            <font-awesome-icon class="fa-xs text-alt-color entry-icon" icon="trash" />
           </ion-button>
         </ion-item>
       </ion-list>
@@ -41,6 +45,7 @@ import moment from 'moment'
 export default {
   name: "SingleListView",
   mounted() {
+    this.$root.$emit('menu-on')
     this.refreshEntries();
   },
   data() {
@@ -85,12 +90,6 @@ export default {
         name: "new-entry",
         params: { listid: this.listid, title: this.title }
       });
-    },
-    async logout() {
-      await this.$api.logout();
-      this.$router.replace({
-        name: "login"
-      });
     }
   }
 };
@@ -107,7 +106,27 @@ export default {
     --padding-end: 5px;
   }
 
-  ion-header ion-button {
-    --padding-end: 15px;
+  .img-cont {
+    position:relative; 
+    height: 100%;
+  }
+
+  .empty {
+    text-align: center; 
+    font-size: 30px; 
+    padding: 1.5em; 
+    color: #d5d5d5;
+  }
+
+  .entry-icon {
+    margin-right: 35px;
+  }
+
+  .hint {
+    display: block; 
+    max-height: 40%; 
+    position: absolute; 
+    bottom: 50px; 
+    right: 30px;
   }
 </style>
