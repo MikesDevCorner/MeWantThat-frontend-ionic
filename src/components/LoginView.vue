@@ -5,8 +5,8 @@
         <ion-row color="primary" class="ion-justify-content-center">
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
             <div class="ion-text-center hl">
-              <h1 v-if="register===false">Shopping List</h1>
-              <h3 v-if="register===true">Register an Account for Shopping List</h3>
+              <img v-if="register===false" alt="Logo" src="../assets/logosm.png" style="width: 60%; margin-top: 40px;">
+              <h4 v-if="register===true">Sign up for <b>ME WANT THAT</b> and create an account</h4>
             </div>
             <div class="ion-padding" style="margin: 4px;">
               <ion-item v-if="register">
@@ -47,7 +47,7 @@
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button @click="changeToRegister">
-          <font-awesome-icon class="fa-lg" v-if="register" icon="sign-in-alt" />
+          <font-awesome-icon class="fa-lg" v-if="register" icon="arrow-left" />
           <font-awesome-icon class="fa-lg" v-if="!register" icon="user-plus" />
         </ion-fab-button>
       </ion-fab>
@@ -123,7 +123,7 @@ export default {
 <style scoped>
 
   ion-content{
-    --ion-background-color:#2196f3;
+    --ion-background-color:#2a628f;
   }
 
   .lbutton {
@@ -132,14 +132,14 @@ export default {
   }
 
   ion-button {
-    --background: #062f77;
+    --background: #13293d;
   }
 
   ion-item {
-      --background: #2196f3;
-      --color: #fff;
       margin-bottom: 5px;
-      --highlight-color-focused	: #062f77;
+      --background: #transparent;
+      --color: #fcf9ed;      
+      --highlight-color-focused	: #13293d;
       --padding-end: 0px;
       --padding-start: 0px;
       --highlight-height: 1px;

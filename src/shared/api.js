@@ -1,7 +1,7 @@
 import axios from "axios"
 import auth from "./auth.js"
 
-const url = "https://shopping.mikesdevcorner.com/api"
+const url = "https://me-want-that.com/api"
 
 export default {
   isAuthenticated: false,
@@ -24,6 +24,11 @@ export default {
       },
       async logout() {
         let response = await axios.post(url + "/logout")
+        auth.setToken(null)
+        return response
+      },
+      async unregister() {
+        let response = await axios.post(url + "/unregister")
         auth.setToken(null)
         return response
       },

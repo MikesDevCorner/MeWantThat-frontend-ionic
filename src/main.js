@@ -7,7 +7,7 @@ import "@ionic/core/css/ionic.bundle.css"
 import { IonicVueRouter } from "@ionic/vue"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus, faTrash, faList, faTag, faPowerOff, faUserPlus, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash, faList, faTag, faPowerOff, faUserPlus, faArrowLeft, faUserMinus, faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import GlobalMixin from './components/GlobalMixin.vue'
 import apiLib from "./shared/api.js"
@@ -21,7 +21,7 @@ async function initApp() {
   Vue.use(IonicVueRouter)
   Vue.mixin(GlobalMixin)
   Vue.use(apiLib)
-  library.add(faPlus, faTrash, faList, faTag, faPowerOff, faUserPlus, faSignInAlt)
+  library.add(faPlus, faTrash, faList, faTag, faPowerOff, faUserPlus, faUserMinus, faArrowLeft, faBars)
   Vue.component('font-awesome-icon', FontAwesomeIcon)
 
   const router = new IonicVueRouter({
@@ -63,10 +63,13 @@ async function initApp() {
   });
 
   router.beforeEach(function(to, from, next) {
-    if (to.name !== 'login' && auth.getToken() === null) {
-      next({ name: 'login' })
-    } else {
+    if (to.name == 'login') {      
+      router.app.$root.$emit('menu-off')
       next()
+    } else {
+      router.app.$root.$emit('menu-on')
+      if(auth.getToken() === null) next({ name: 'login' })
+      else next()
     }
   });
 

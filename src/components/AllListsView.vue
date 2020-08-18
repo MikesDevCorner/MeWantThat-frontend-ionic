@@ -3,24 +3,28 @@
     <ion-header>
       <ion-toolbar color="primary">
         <ion-buttons slot="end">
-          <ion-button>
-            <font-awesome-icon icon="power-off" @click="logout" />
-          </ion-button>
+          <ion-menu-button menu="first" >
+            <font-awesome-icon class="fa-xs" icon="bars"/>
+          </ion-menu-button>
         </ion-buttons>
         <ion-title>Shopping Lists</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content padding>
-      <ion-list>
+      <div v-if="lists.length === 0" class="img-cont">
+        <div class="empty handwritten">vast emptyness</div>
+        <img alt="Hint" src="../assets/first_list_hint.png" class="hint">
+      </div>
+      <ion-list v-if="lists.length > 0">
         <ion-item button v-for="(list, index) in lists" :key="index">
           <ion-ripple-effect></ion-ripple-effect>
-          <font-awesome-icon icon="list" style="color:#2196f3; margin-right: 35px;" />
+          <font-awesome-icon class="text-color-primary" icon="list" style="margin-right: 35px;" />
           <ion-label @click="openList(list)">
             <h2>{{list.listname}}</h2>
             <ion-note>{{list.readableDate}}</ion-note>
           </ion-label>
           <ion-button fill="clear" size="large" slot="end" @click="removeList(list)">
-            <font-awesome-icon class="fa-xs" icon="trash" style="color:#777;" />
+            <font-awesome-icon class="fa-xs text-alt-color" icon="trash" />
           </ion-button>
         </ion-item>
       </ion-list>
@@ -41,6 +45,7 @@ import moment from 'moment'
 export default {
   name: "AllListsView",
   mounted() {
+    this.$root.$emit('menu-on')
     this.refreshList();
     if(this.alreadySubscribed === false) {
       Plugins.App.addListener('backButton', function() { 
@@ -94,10 +99,6 @@ export default {
           "Some error occured during deletion"
         );
       }
-    },
-    async logout() {
-      await this.$api.logout();
-      this.$router.replace({name: "login"});
     }
   }
 };
@@ -114,7 +115,27 @@ export default {
     --padding-end: 5px;
   }
 
-  ion-header ion-button {
-    --padding-end: 15px;
+  .img-cont {
+    position:relative; 
+    height: 100%;
+  }
+
+  .empty {
+    text-align: center; 
+    font-size: 30px; 
+    padding: 1.5em; 
+    color: #d5d5d5;
+  }
+
+  .entry-icon {
+    margin-right: 35px;
+  }
+
+  .hint {
+    display: block; 
+    max-height: 40%; 
+    position: absolute; 
+    bottom: 50px; 
+    right: 30px;
   }
 </style>
