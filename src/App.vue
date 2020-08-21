@@ -145,4 +145,8 @@ export default {
   --ion-color-medium: #7A0F0F;
   --ion-background-color:#fcf9ed;
   }
+
+  .form-error {
+    color: #d93d32;
+  }
 </style>

@@ -19,12 +19,14 @@
           <ion-label position="floating">Listname</ion-label>
           <ion-input type="text" 
                     :value="listName" 
+                    autofocus="true"
                     maxlength="60"
                     required
-                    @input="listName=$event.target.value"></ion-input>
+                    @ionInput="listName=$event.target.value"></ion-input>
         </ion-item>
+        <ion-note class="form-error">{{nameError}}</ion-note>
         <div class="icenter">
-          <ion-button color="tertiary" expand="block" @click="saveList">Save</ion-button>
+          <ion-button :disabled="!formValid" color="tertiary" expand="block" @click="doValidate">Save</ion-button>
         </div>
       </div>
     </ion-content>
@@ -36,36 +38,59 @@ export default {
   name: "NewListPage",
   data() {
     return {
-      listName: ""
+      listName: "",
+      validate: false
     };
   },
   mounted() {
     this.$root.$emit('menu-on')
   },
-  methods: {
-    async saveList() {
-      this.listName = this.listName.trim();
-      if (this.listName !== "") {
-        this.showLoading();
-        try {
-          let response = await this.$api.addList(this.listName);
-          this.hideLoading();
-          if (response.status === 201) {
-            this.$router.replace({ name: "all-lists" });
-            this.presentToast("List created successfully");
-          } else if(response.status === 401) {
-            this.hideLoading();
-            this.$router.replace({name: "login"});
-          }
-        } catch(e) {
-          this.hideLoading();
-          this.presentAlert(
-            "Error",
-            "Some error occured during creation of your list"
-          );
+  computed: {
+    nameError() {
+      if(this.validate === true) {
+        const re = /^[a-zA-Z0-9üÜäÄöÖß_ ]*$/
+        if(re.test(this.listName)) {
+          if(this.listName.length > 60) return "Reduce name to less than 60 characters"
+          else if(this.listName.length === 0) return "Name should not be empty"
+          else return ""
         }
-      } else {
-        this.presentToast("Listname should not be empty");
+        else return "Only characters and digits are allowed"
+      }
+      else return ""
+    },
+    formValid() {
+      if(this.validate === false || (this.nameError === "")) return true
+      else return false
+    },
+  },
+  methods: {
+    doValidate() {
+      this.validate = true
+      this.$nextTick(() => {
+        if(this.formValid === true) this.saveList()
+        else this.presentToast("Please check your input fields")
+      })
+    },
+    async saveList() {
+      this.validate = false
+      this.listName = this.listName.trim();
+      this.showLoading();
+      try {
+        let response = await this.$api.addList(this.listName);
+        this.hideLoading();
+        if (response.status === 201) {
+          this.$router.replace({ name: "all-lists" });
+          this.presentToast("List created successfully");
+        } else if(response.status === 401) {
+          this.hideLoading();
+          this.$router.replace({name: "login"});
+        }
+      } catch(e) {
+        this.hideLoading();
+        this.presentAlert(
+          "Error",
+          "Some error occured during creation of your list"
+        );
       }
     }
   }
@@ -76,8 +101,11 @@ export default {
 <style scoped>
   .nameinput {
     margin-top: 40px;
+  }
+  ion-note {
     margin-bottom: 20px;
   }
+
   .icenter {
     padding-top: 15px;
   }
@@ -92,5 +120,4 @@ export default {
       --padding-start: 0px;
       --highlight-height: 1px;
   }
-
 </style>

@@ -20,13 +20,13 @@
       </div>
       <ion-list v-if="entries.length > 0">
         <ion-item v-for="(entry, index) in entries" :key="index">
-          <font-awesome-icon class="text-color-primary" icon="tag"/>
+          <font-awesome-icon class="text-color-primary entry-icon" icon="tag"/>
           <ion-label>
             <h2>{{entry.entryname}}</h2>
             <ion-note>Amount: {{entry.amount}}x</ion-note>
           </ion-label>
           <ion-button  fill="clear" size="large" slot="end" @click="removeEntry(entry)">
-            <font-awesome-icon class="fa-xs text-alt-color entry-icon" icon="trash" />
+            <font-awesome-icon class="fa-xs text-alt-color" icon="trash" />
           </ion-button>
         </ion-item>
       </ion-list>
