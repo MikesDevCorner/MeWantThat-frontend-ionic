@@ -18,7 +18,7 @@
       <ion-list v-if="lists.length > 0">
         <ion-item button v-for="(list, index) in lists" :key="index">
           <ion-ripple-effect></ion-ripple-effect>
-          <font-awesome-icon class="text-color-primary" icon="list" style="margin-right: 35px;" />
+          <font-awesome-icon class="text-color-primary list-icon" icon="list" />
           <ion-label @click="openList(list)">
             <h2>{{list.listname}}</h2>
             <ion-note>{{list.readableDate}}</ion-note>
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-
 import { Plugins } from '@capacitor/core'
 import moment from 'moment'
 
@@ -127,7 +126,7 @@ export default {
     color: #d5d5d5;
   }
 
-  .entry-icon {
+  .list-icon {
     margin-right: 35px;
   }
 
